@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>XHR LOAD SNIPPET</title>
+    <link rel="stylesheet" src="css/projects-styles.css" type="text/css">
+    <script src="https://use.fontawesome.com/5116666906.js"></script>
+    
+	<style>
+		*{
+			font-family:tahoma,verdana,sans-serif;
+		}
+		
+        
+        
+	</style>
+	<script>
+      ///////// What is first loaded is the title, and the first image. if the user clicks on the article box, it expands (only one can be expanded at a time, others will shrink), and reveals the rest of the information
+	(function(){
+		"use strict";
+		window.onload = init;
+        
+        // Defaulted values to "ALL" initially, otherwise are null to start
+        var selected_timeframe = "ALL"; 
+		var selected_category = "ALL";
+      
+        /*var slideIndex = 1;/**/
+      
+        // Whe
+      
+		function init(){
+            loadData();
+            
+            // TO DO: set selected_timeframe and selected_category according to the UL LI A element's value(?) that currently has the class 'selected' in their respective sections
+          
+            /*
+            document.getElementById('project-time-selector').onchange = function(){
+                selected_timeframe = this.value;
+                loadData();
+            };
+            document.getElementById('project-category-selector').onchange = function(){
+                selected_category = this.value;
+                loadData();
+            };*/
+		}
+		
+		function loadData(){
+			var xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+ 				var myJSON = JSON.parse( xhr.responseText );
+                
+                var allprojects = myJSON.projects;
+				var html = "";
+              				
+				for(var i=0; i < allprojects.length; i++){
+					var project = allprojects[i];
+                  
+                    var timeline = project.timeline;
+                    if (selected_timeframe.toUpperCase() != "ALL") {
+                      if (timeline != selected_timeframe) continue;
+                    }
+                    if (!timeline){ 
+                      console.log("JSON ERROR: 'timeline' property not found for project[" + i + "].");
+                      timeline = "n/a";
+                    }
+                  
+                    var category = project.category;
+                    if (selected_category.toUpperCase() != "ALL") {
+                      if (category != selected_category) continue;
+                    }
+                    if (!category){ 
+                      console.log("JSON ERROR: 'category' property not found for project[" + i + "].");
+                      timeline = "n/a";
+                    }
+                  
+                    var title = project.title;
+                    if (!title) title = "(No title)";    
+                    var type = project.type;
+                    if (!type) type = "n/a";
+                    var startDate = project.startDate;
+                    var endDate = project.endDate;
+                    var progress = project.progress;
+                    var description = project.description;
+                    if (!description) description = "No description";
+                    var images = project.images;
+                    var repo = project.repository;
+                    var link = project.link;
+                  
+					html += "<div class='project-div'>";
+					html += "<h3>" + title + "</h3>";
+                    if (images || images.length != 0) html += "<img src= '" + images[0] + "'>";
+                  
+                  
+                    // READ MORE CUT OFF HERE
+                    
+                    html += "<div class='readmore-content' style='display:none'>"; ////////class css style not applying
+                  
+                    html += "Type:" + type;
+                    html += "<br>Status: " + timeline;
+                    html += "<p>" + description + "</p>";
+                    
+                    if (repo) {
+                      html += "<a class='projectlink-button' href='" + repo + "'><i class='fa fa-github fa-fw'></i></a><span class='fadein-link-descriptor'>See the repo on GitHub<span>";
+                    }
+                    if (link){
+                      html += "<a class='projectlink-button' href='" + link + "'><i class='fa fa-gamepad'></i></a><span class='fadein-link-descriptor'>Play online<span>";
+                    }
+                  
+                    // Image slide gallery
+                    if (images || images.length != 0)  {
+                      html += "<div class='gallery-container'>";
+                      for (var n = 0; n < images.length; n++){
+                          html += "<img class='slides' src='" + images[n] + "' style='width:100%'>";
+                      }
+                      html += "<a class='btn-floating display-left' onclick='plusDivs(-1)'>&#10094;</a><a class='btn-floating display-right' onclick='plusDivs(1)'>&#10095;</a>";
+                      ////// where do these method declarations need to be?? and the code for the gallery slideshow nstuff -- the same will apply for javascript for doing readmore stuff (SEE PETFINDER API I THINK I DID IT THERE)
+                      
+                      html += "</div>";
+                      html += "</div>";
+                    }
+                  
+					html += "</div>";
+				}
+ 				
+ 			    //var myJSON = eval('(' + xhr.responseText + ')');
+				document.querySelector('#content').innerHTML = html;
+			}
+			
+			var url = "projects_list.json";
+			xhr.open('GET',url,true);
+			// try to prevent browser caching by sending a header to the server
+			xhr.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2010 00:00:00 GMT");
+			xhr.send();
+          
+            /*$("#result").fadeIn(500);
+        
+            // SHOW-MORE-LINK HANDLER
+            $(".readmore-content").on("click", function() {
+                var $this = $(this); 
+                var $content = $this.parent().prev("div.content");
+                var linkText = $this.text().toUpperCase();  
+
+                if (linkText === "OPEN DESCRIPTION") {
+                    linkText = "Close description";
+                    $content.slideToggle("slow");
+                } else {
+                    linkText = "Open description";
+                    $content.slideToggle("slow");
+                };
+                $this.text(linkText);
+            }); 
+          
+            // Gallery Stuff
+            showDivs(slideIndex);          
+          
+          
+            // Gallery Helper Functions------------------------------------
+            function plusDivs(n) {
+              showDivs(slideIndex += n);
+            }
+
+            function showDivs(n) {
+              var slides = document.getElementsByClassName("slides");
+              if (n > slides.length) {slideIndex = 1}
+              if (n < 1) {slideIndex = slides.length}
+              for (var i = 0; i < slides.length; i++) {
+                 slides[i].style.display = "none";
+              }
+              slides[slideIndex-1].style.display = "block";  // " cannot read property style"
+            }/**/
+		} 
+      
+        
+		
+	}())
+	</script>
+</head>
+<body>
+    <!--
+        When changing options in each UL, get an array of the objects with the class "time-option" or "category-option".
+
+        Give the clicked <a> element the class "selected" and go through the rest of the elements i the list, finding the one that previously had "selected", and remove the class from it.
+    -->
+    Time:
+    <ul id="project-time-selector">
+      <li value='ALL' class='time-option'><a href="#" class='selected'>All</a></li>
+      <li value='CURRENT' class='time-option'><a href="#">Current</a></li>
+      <li value='PAST' class='time-option'><a href="#">Past</a></li>
+    </ul>
+    Sort category:
+    <ul id="project-category-selector">
+      <li value='ALL' class='category-option'><a href="#" class='selected'>All</a></li>
+      <li value='d-games' class='category-option'><a href="#">Digital Games</a></li>
+      <li value='an-games' class='category-option'><a href="#">Analog Games</a></li>
+      <li value='2dart' class='category-option'><a href="#">2D Art</a></li>
+      <li value='3Dart' class='category-option'><a href="#">3D Art</a></li>
+      <li value='web' class='category-option'><a href="#">Web</a></li>
+    </ul>
+  
+	<div id='content'></div>
+    
+    <script>
+    // -get array of classes called 'time-option'/'category-option' by class name
+    // change selected_timeframe/selected_category the VALUE of the <a> element clicked
+    // give class 'selected' to the <a> element clicked
+    // remove class 'selected' from all the <a> elements in the array
+    // call loadData()
+        
+    function openCategory(val) {
+        var i, tabList;
+        tabList = document.getElementsByClassName("category-option");
+        selected_time = val;
+        
+        for (i = 0; i < tabList.length; i++) {
+            //tabList[i].style.display = "none";
+            // remove class selected
+        }
+        // give class selected to THIS element
+        
+        
+        //tablinks = document.getElementsByClassName("tablinks");
+        //for (i = 0; i < tablinks.length; i++) {
+        //    tablinks[i].className = tablinks[i].className.replace(" active", "");
+        //}
+        //document.getElementById(cityName).style.display = "block";
+        //evt.currentTarget.className += " active";
+    }
+    </script>
+
+</body>
+</html>

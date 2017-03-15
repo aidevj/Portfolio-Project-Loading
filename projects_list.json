@@ -1,0 +1,106 @@
+{
+  "projects": [
+    {
+      "title": "MasQuerade",
+      "type": "Game",
+      "category": "d-games",
+      "timeline": "past",
+      "startDate": "2012",
+      "endDate": "2014",
+      "progress": "indefinite-hiatus",
+      "description": "A Visual Novel game in Python. Character art, story, and programming.",
+      "images": [],
+      "repository": ""
+    },
+    {
+      "title": "Just Villain'",
+      "type": "Game",
+      "category": "d-games",
+      "timeline": "past",
+      "endDate": "2014",
+      "progress": "indefinite-complete",
+      "description": "A 2D infinite runner in Monogame C#.",
+      "images": [
+        "img/projects/justvillain_01.png",
+        "img/projects/justvillain_02.png"
+      ],
+      "repository": "https://github.com/i4sCancri/Just-Villain"
+    },
+    {
+      "title": "Female Human - Koyoi",
+      "type": "3D-Modeling",
+      "category": "3Dart",
+      "timeline": "past",
+      "progress": "complete",
+      "description": "First human model created using Autodesk Maya. Completed a low poly, high poly, retopology, and gave it a skeleton and skinning. Character controllers and animaitons also added, textured the model including baking normal and ambient occlusion maps.",
+      "images": [
+        "img/projects/KOYOI_RIGGED_IDLE.gif",
+        "img/projects/KOYOI_RIGGED_WALKCYCLE.gif",
+        "img/projects/KOYOI_CONCEPTART.png"
+      ],
+      "repository": ""
+    },
+    {
+      "title": "Iron Atlus",
+      "type": "Boardgame",
+      "category": "an-games",
+      "timeline": "past",
+      "endDate": "2016",
+      "progress": "complete",
+      "description": "",
+      "images": [
+        "img/projects/IRONATLAS_COVER.png"
+      ],
+      "repository": ""
+    },
+    {
+      "title": "Panel Puzzler",
+      "type": "Game",
+      "category": "d-games",
+      "timeline": "current",
+      "startDate": "2016",
+      "progress": "in-progress",
+      "description": "A 2D top-down puzzle game made in Javascript in Canvas API.",
+      "images": [],
+      "link": "https://people.rit.edu/itm5305/330/P2/index.html",
+      "repository": "https://github.com/i4sCancri/Puzzle-Room-Escape"
+    },
+    {
+      "title": "PandoCom",
+      "type": "Game",
+      "category": "d-games",
+      "timeline": "current",
+      "startDate": "2016",
+      "progress": "in-progress",
+      "description": "Unity 2D Side Scrolling Shoot-em-up in Javascript.",
+      "images": [],
+      "link": "",
+      "repository": ""
+    },
+    {
+      "title": "Giant Running Robots",
+      "type": "Game",
+      "category": "d-games",
+      "timeline": "current",
+      "startDate": "2017",
+      "progress": "in-progress",
+      "description": "Unity 2D/3D side scrolling platforming runner.",
+      "images": [],
+      "link": "",
+      "repository": ""
+    },
+    {
+      "title": "Portfolio AJAX Loading",
+      "type": "Web",
+      "category": "web",
+      "timeline": "current",
+      "startDate": "2017",
+      "endDate": "",
+      "progress": "in-progress",
+      "description": "This very portfolio website--exactly what you are looking at right now has been a short project in itself. Projects in a JSON file are loaded and formatted onto the page through JavaScript AJAX.",
+      "images": [],
+      "link": "",
+      "repository": ""
+    }
+  ]
+}
