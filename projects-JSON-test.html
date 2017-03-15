@@ -12,36 +12,48 @@
 		}
 		
         
-        
+        .selected {
+            text-decoration: underline;
+            color: red;
+        }
+        ul {
+            list-style-type: none;
+        }
 	</style>
 	<script>
-      ///////// What is first loaded is the title, and the first image. if the user clicks on the article box, it expands (only one can be expanded at a time, others will shrink), and reveals the rest of the information
+    ///////// What is first loaded is the title, and the first image. if the user clicks on the article box, it expands (only one can be expanded at a time, others will shrink), and reveals the rest of the information
 	(function(){
 		"use strict";
 		window.onload = init;
         
         // Defaulted values to "ALL" initially, otherwise are null to start
-        var selected_timeframe = "ALL"; 
 		var selected_category = "ALL";
       
         /*var slideIndex = 1;/**/
-      
-        // Whe
+    
       
 		function init(){
             loadData();
             
-            // TO DO: set selected_timeframe and selected_category according to the UL LI A element's value(?) that currently has the class 'selected' in their respective sections
-          
-            /*
-            document.getElementById('project-time-selector').onchange = function(){
-                selected_timeframe = this.value;
+            
+            function openCategory(val) {
+                var i, tabList, previous;
+                //tabList = document.getElementsByClassName("category-option");
+
+                selected_time = val;
+
+                // Get the array of those with class 'selected' (should only be one)
+                previous = document.getElementsByClassName('selected');     // will not work if multiple selectors
+                console.log("Previous=" + previous)
+                // Remove the 'selected' class from the last one that was selected
+                previous[0].classList.remove('selected');
+
+                // Apply the new element to the 'selected' class
+                this.classList.add('selected');
+
+                // Call loadData(), now that the new parameters have been set
                 loadData();
-            };
-            document.getElementById('project-category-selector').onchange = function(){
-                selected_category = this.value;
-                loadData();
-            };*/
+            }
 		}
 		
 		function loadData(){
@@ -56,9 +68,6 @@
 					var project = allprojects[i];
                   
                     var timeline = project.timeline;
-                    if (selected_timeframe.toUpperCase() != "ALL") {
-                      if (timeline != selected_timeframe) continue;
-                    }
                     if (!timeline){ 
                       console.log("JSON ERROR: 'timeline' property not found for project[" + i + "].");
                       timeline = "n/a";
@@ -173,59 +182,32 @@
         
 		
 	}())
-	</script>
-</head>
-<body>
-    <!--
-        When changing options in each UL, get an array of the objects with the class "time-option" or "category-option".
-
-        Give the clicked <a> element the class "selected" and go through the rest of the elements i the list, finding the one that previously had "selected", and remove the class from it.
-    -->
-    Time:
-    <ul id="project-time-selector">
-      <li value='ALL' class='time-option'><a href="#" class='selected'>All</a></li>
-      <li value='CURRENT' class='time-option'><a href="#">Current</a></li>
-      <li value='PAST' class='time-option'><a href="#">Past</a></li>
-    </ul>
-    Sort category:
-    <ul id="project-category-selector">
-      <li value='ALL' class='category-option'><a href="#" class='selected'>All</a></li>
-      <li value='d-games' class='category-option'><a href="#">Digital Games</a></li>
-      <li value='an-games' class='category-option'><a href="#">Analog Games</a></li>
-      <li value='2dart' class='category-option'><a href="#">2D Art</a></li>
-      <li value='3Dart' class='category-option'><a href="#">3D Art</a></li>
-      <li value='web' class='category-option'><a href="#">Web</a></li>
-    </ul>
-  
-	<div id='content'></div>
     
-    <script>
-    // -get array of classes called 'time-option'/'category-option' by class name
+    // Handling Category Selection---------------------------------------------------------------------------------------
+    
+    // get array of classes called 'time-option'/'category-option' by class name
     // change selected_timeframe/selected_category the VALUE of the <a> element clicked
     // give class 'selected' to the <a> element clicked
     // remove class 'selected' from all the <a> elements in the array
     // call loadData()
         
-    function openCategory(val) {
-        var i, tabList;
-        tabList = document.getElementsByClassName("category-option");
-        selected_time = val;
-        
-        for (i = 0; i < tabList.length; i++) {
-            //tabList[i].style.display = "none";
-            // remove class selected
-        }
-        // give class selected to THIS element
-        
-        
-        //tablinks = document.getElementsByClassName("tablinks");
-        //for (i = 0; i < tablinks.length; i++) {
-        //    tablinks[i].className = tablinks[i].className.replace(" active", "");
-        //}
-        //document.getElementById(cityName).style.display = "block";
-        //evt.currentTarget.className += " active";
-    }
-    </script>
+
+	</script>
+</head>
+<body>
+    Sort category:
+    <ul id="project-category-selector">
+      <li class='category-option'><a href="#" onclick="openCategory('ALL')" class='selected'>All</a></li>
+      <li class='category-option'><a href="#" onclick="openCategory('d-games')">Digital Games</a></li>
+      <li class='category-option'><a href="#" onclick="openCategory('an-games')">Analog Games</a></li>
+      <li class='category-option'><a href="#" onclick="openCategory('2dart')">2D Art</a></li>
+      <li class='category-option'><a href="#" onclick="openCategory('3Dart')">3D Art</a></li>
+      <li class='category-option'><a href="#" onclick="openCategory('web')">Web</a></li>
+    </ul>
+  
+	<div id='content'></div>
+    
+    
 
 </body>
 </html>

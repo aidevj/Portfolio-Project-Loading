@@ -1,0 +1,45 @@
+#content{}
+select{}
+
+
+.project{
+    border:1px solid black;
+    padding:5px;
+    margin-bottom:10px;
+}
+.project-div {
+    border:  1px solid black;
+    margin: 10px;
+    width: 50%;
+}
+.project-div img  {
+    width: 90%;
+    height: auto;
+}
+
+
+.projectlink-button{}
+.fadein-link-descriptor{}
+.readmore-content{
+  display: none;
+}
+
+/* Selector Styles */
+#project-category-selector, 
+#project-time-selector {
+   
+}
+ul {
+    display: inline;   
+    margin-right: 10px;
+}
+a {
+    text-decoration: none;
+}
+
+
+/* Gallery Styles */
+.gallery-container{}
+.btn-floating{}
+.display-left{}
+.slides{}
